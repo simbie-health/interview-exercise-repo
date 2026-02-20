@@ -61,13 +61,13 @@ TOOL_FUNCTIONS = {
 }
 
 
-def run_agent(clinic: str):
-    """Run an interactive agent session for a given clinic."""
+def run_agent():
+    """Run an interactive agent session."""
 
     messages: list = [{"role": "system", "content": SYSTEM_PROMPT}]
 
     print(f"\n{'=' * 50}")
-    print(f"  Scheduling Agent — {clinic}")
+    print(f"  Scheduling Agent")
     print(f"  Type 'quit' to exit")
     print(f"{'=' * 50}\n")
 
@@ -113,9 +113,6 @@ def run_agent(clinic: str):
             for tool_call in choice.tool_calls:
                 fn_name = tool_call.function.name
                 fn_args = json.loads(tool_call.function.arguments)
-
-                # Inject clinic — the LLM doesn't need to know about it
-                fn_args["clinic"] = clinic
 
                 print(f"  [Tool: {fn_name}({fn_args})]")
                 result = TOOL_FUNCTIONS[fn_name](**fn_args)

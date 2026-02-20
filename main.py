@@ -3,43 +3,18 @@ Simbie AI — Interview Exercise: Backend/Integrations
 
 We build AI agents that handle phone calls for medical clinics.
 Each clinic uses a different EHR (Electronic Health Records) system.
-We have a base class + factory pattern to support multiple EHRs.
 
-Currently Clinic A is integrated. Your task: add Clinic B.
+Currently no tools are integrated. Your task: build the integrations.
 
 Run the agent:
-    python main.py agent
-
-Run the tests:
-    python main.py test
+    python main.py
 """
 
-import sys
-from ehr_services.ehr_factory import get_ehr_service
-
-
-def run_agent_mode():
-    """Start the interactive agent."""
-    from agent import run_agent
-
-    print("Which clinic is calling?")
-    print("  1. clinic_a")
-    print("  2. clinic_b")
-    choice = input("\nSelect (1/2): ").strip()
-
-    clinic = "clinic_a" if choice == "1" else "clinic_b"
-
-    try:
-        get_ehr_service(clinic)  # Verify it's registered
-    except Exception as e:
-        print(f"\nError: {e}")
-        return
-
-    run_agent(clinic)
+from agent import run_agent
 
 
 def main():
-    run_agent_mode()
+    run_agent()
 
 
 if __name__ == "__main__":
