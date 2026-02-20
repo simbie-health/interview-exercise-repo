@@ -11,7 +11,6 @@ Requires: OPENAI_API_KEY env var
 import json
 import os
 from openai import OpenAI
-from tools.patient_lookup import search_patient
 
 client = OpenAI(api_key="OPENAI_API_KEY")
 
@@ -29,28 +28,36 @@ Guidelines:
 - Be concise and professional, like a real front desk staff member
 - Do NOT provide medical advice — only help with scheduling"""
 
+# TODO: Add new tool definitions here as you add more agent capabilities
 TOOL_DEFINITIONS = [
     {
         "type": "function",
         "function": {
-            "name": "search_patient",
-            "description": "Search for a patient by date of birth. Use when the patient provides their DOB to verify identity.",
+            "name": "func_name",
+            "description": "",
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "date_of_birth": {
+                    "param1": {
                         "type": "string",
-                        "description": "Patient date of birth in YYYY-MM-DD format",
+                        "description": "",
                     },
                 },
-                "required": ["date_of_birth"],
+                "required": ["param1"],
             },
         },
     },
 ]
 
+# TODO: Implement tool functions that interact with the EHR services
+# Example:
+# def search_patient(clinic: str, date_of_birth: str) -> dict:
+#     ...
+#     return {"found": True, "patients": [...], "message": "Found patient: ..."}
+
+# Register tool functions here (name → function mapping)
 TOOL_FUNCTIONS = {
-    "search_patient": search_patient,
+    # "func_name": _application_function,
 }
 
 
