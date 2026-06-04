@@ -1,0 +1,23 @@
+services:
+  agent:
+    build: .
+    # The agent reads input() from the terminal, so keep stdin open and allocate a TTY.
+    stdin_open: true
+    tty: true
+    # Loads OPENAI_API_KEY (and anything else) from a local .env file — not baked into the image.
+    env_file:
+      - .env
+    # Mount the project live so the container always runs your latest code —
+    # no rebuild needed after editing .py files; just re-run `docker compose run --rm agent`.
+    volumes:
+      - .:/app
+    develop:
+      # `docker compose up --watch` (or `docker compose watch`) uses this block.
+      watch:
+        # Restart the container whenever any source file changes.
+        - action: rebuild
+          path: .
+          ignore:
+            - venv/
+            - .venv/
+            - __pycache__/
