@@ -1,0 +1,13 @@
+{
+  "name": "simbie-scheduling-agent-js",
+  "version": "1.0.0",
+  "description": "JavaScript port of the Simbie AI interview exercise scheduling agent",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node main.js"
+  },
+  "dependencies": {
+    "openai": "^4.77.0"
+  }
+}
